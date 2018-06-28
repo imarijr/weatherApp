@@ -5,7 +5,7 @@ Forecast for {{ location }}
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class = "panel-title">{{ w.dt_txt }}</h3>
+                    <h3 class = "panel-title">{{ convertTime(w.dt) | date: 'ha - MMM d, yyyy' }}</h3>
                 </div>
                 <div class="panel-body">
                     Daytime temperature: {{ convertToFarenheit(w.main.temp) }}º F

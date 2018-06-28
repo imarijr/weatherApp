@@ -51,6 +51,10 @@ $resource("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=df852
 
  }
 
+ $scope.convertTime = function(time){
+     return new Date(time * 1000)
+ }
+
     $scope.weatherResult = $scope.weatherAPI.get({q: $scope.location, cnt: 2})
 
     console.log($scope.weatherResult)
