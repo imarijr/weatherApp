@@ -36,6 +36,16 @@ weatherApp.controller('homeController',['$scope','locationService', function($sc
 
 }])
 
-weatherApp.controller('forecastController',['$scope','locationService', function($scope, locationService){
+weatherApp.controller('forecastController',['$scope', '$resource','locationService', function($scope, $resource, locationService){
+    
     $scope.location = locationService.location
+
+    $scope.weatherAPI = 
+$resource("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=df852e8d86d8f4a0f601a3a860703ee1", {
+    callback: "JSON_CALLBACK"}, {get: {method: "JSONP"}
+})
+
+    $scope.weatherResult = $scope.weatherAPI.get({q: $scope.location, cnt: 2})
+
+    console.log($scope.weatherResult)
 }])
