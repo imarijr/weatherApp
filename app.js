@@ -45,6 +45,12 @@ $resource("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=df852
     callback: "JSON_CALLBACK"}, {get: {method: "JSONP"}
 })
 
+ $scope.convertToFarenheit = function(degK){
+
+    return Math.round((1.8 * (degK - 273)) + 32)
+
+ }
+
     $scope.weatherResult = $scope.weatherAPI.get({q: $scope.location, cnt: 2})
 
     console.log($scope.weatherResult)
