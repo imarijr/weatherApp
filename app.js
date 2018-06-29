@@ -16,6 +16,11 @@ weatherApp.config(function ($routeProvider){
         templateUrl: 'pages/forecast.html',
         controller: 'forecastController'
     })
+
+    .when('forecast/:days',{
+        templateUrl: 'pages/forecast.html',
+        controller: 'forecastController'
+    })
 })
 
 //SERVICES
@@ -36,9 +41,11 @@ weatherApp.controller('homeController',['$scope','locationService', function($sc
 
 }])
 
-weatherApp.controller('forecastController',['$scope', '$resource','locationService', function($scope, $resource, locationService){
+weatherApp.controller('forecastController',['$scope', '$resource','$routeParams','locationService', function($scope, $resource,$routeParams, locationService){
     
     $scope.location = locationService.location
+
+    $scope.days = $routeParams.days || 2
 
     $scope.weatherAPI = 
 $resource("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=df852e8d86d8f4a0f601a3a860703ee1", {
@@ -55,7 +62,7 @@ $resource("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=df852
      return new Date(time * 1000)
  }
 
-    $scope.weatherResult = $scope.weatherAPI.get({q: $scope.location, cnt: 2})
+    $scope.weatherResult = $scope.weatherAPI.get({q: $scope.location, cnt: $scope.days})
 
     console.log($scope.weatherResult)
 }])
